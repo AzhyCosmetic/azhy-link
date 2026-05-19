@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Azhy Cosmetic - Links</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openkurdish/kurdish-fonts@main/Rabar/Rabar001/Rabar001.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* جێگیرکردنی فۆنتی Rabar001 بۆ تەواوی پەیجەکە */
+            font-family: 'Rabar001', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
@@ -21,7 +23,6 @@
             justify-content: center;
             color: #4c2637;
             padding: 40px 20px;
-            /* لێرە overflow: hidden لابراوە و کراوە بە ئەوتۆ بۆ ئەوەی سکڕۆڵ بکات */
             overflow-x: hidden;
             overflow-y: auto;
             position: relative;
@@ -29,7 +30,7 @@
 
         /* --- ستایلی بەفرە جوڵاوەکە --- */
         .snow-container {
-            position: fixed; /* کراوە بە فیکس بۆ ئەوەی لەگەڵ سکڕۆڵکردن نەجوڵێت */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -109,6 +110,7 @@
             text-decoration: none;
             color: #ffffff;
             font-weight: 600;
+            font-size: 16px; /* کەمێک گەورەتر کراوە بۆ ئەوەی فۆنتە کوردییەکە بە ڕوونی بخوێندرێتەوە */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -128,8 +130,6 @@
             background: #6d3b4b;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
-
-    
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 0.8; }
@@ -152,35 +152,39 @@
 
     <div class="container">
         <div class="logo-wrapper">
-            <img src="logo.jpg.jpg" alt="Azhy Cosmetic" class="logo-img">
+            <img src="logo.jpg" alt="Azhy Cosmetic" class="logo-img">
         </div>
 
         <h1>Azhy Cosmetic</h1>
         <p class="tagline">Beauty & Personal Care</p>
 
         <div class="links-list">
-            <a href="https://www.instagram.com/azhy_cosmatic?igsh=Y2UxMHhjdm5vZG1i" class="link-card instagram">
+            <a href="https://www.instagram.com/azhy_cosmatic?igsh=Y2UxMHhjdm5vZG1i" class="link-card instagram" target="_blank">
                 <i class="fab fa-instagram"></i>
                 ئینستاگرام
             </a>
 
-            <a href="https://www.snapchat.com/add/azhy_cosmatic?share_id=ffHR6-iDtdM&locale=en-US" class="link-card snapchat">
+            <a href="https://www.snapchat.com/add/azhy_cosmatic?share_id=ffHR6-iDtdM&locale=en-US" class="link-card snapchat" target="_blank">
                 <i class="fab fa-snapchat"></i>
                 سناپچات
             </a>
 
-            <a href="https://www.tiktok.com/@azhycosmetic?_r=1&_t=ZS-969lpvLgrjw" class="link-card tiktok">
+            <a href="https://www.tiktok.com/@azhycosmetic?_r=1&_t=ZS-969lpvLgrjw" class="link-card tiktok" target="_blank">
                 <i class="fab fa-tiktok"></i>
                 تیک تۆک
             </a>
 
-            <a href="https://maps.app.goo.gl/4KupARdXiLqysasX8" class="link-card location">
+            <a href="https://wa.me/9647515140542" class="link-card whatsapp" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                واتسئەپ
+            </a>
+
+            <a href="https://maps.app.goo.gl/4KupARdXiLqysasX8" class="link-card location" target="_blank">
                 <i class="fas fa-map-marker-alt"></i>
                 ناونیشان لەسەر نەخشە
             </a>
         </div>
 
-        
         <p class="footer-text">© 2026 Azhy Cosmetic</p>
     </div>
 
@@ -190,6 +194,7 @@
 
         for (let i = 0; i < snowCount; i++) {
             const snow = document.createElement('div');
+            remove_className = 'snow';
             snow.className = 'snow';
             const size = Math.random() * 5 + 2 + 'px';
             snow.style.width = size;
