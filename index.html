@@ -72,9 +72,11 @@
             width: 130px;
             height: 130px;
             border-radius: 50%;
-            object-fit: cover;
+            object-fit: cover; /* وێنەکە ڕێکدەخات بەبێ ئەوەی پان یان درێژ بێتەوە */
             border: 3px solid rgba(255, 255, 255, 0.5);
             box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.1); /* ڕەنگێکی کەم ئەگەر وێنەکە دیار نەبوو */
+            display: inline-block;
         }
 
         h1 {
@@ -212,7 +214,7 @@
 
     <div class="container">
         <div class="logo-wrapper">
-            <img src="logo.jpg" alt="Azhy Cosmetic" class="logo-img">
+            <img src="logo.jpg.jpg" alt="Azhy Cosmetic" class="logo-img">
         </div>
 
         <h1>Azhy Cosmetic</h1>
@@ -284,17 +286,26 @@
         resize();
 
         class Particle {
-            constructor() {
-                this.init();
+            constructor(x, y, isBurst = false) {
+                this.init(x, y, isBurst);
             }
-            init() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
+            init(x, y, isBurst) {
+                this.x = x !== undefined ? x : Math.random() * canvas.width;
+                this.y = y !== undefined ? y : Math.random() * canvas.height;
                 // لێرەدا مەوداکەمان زیاد کردووە بۆ ئەوەی قەبارەکان لە نێوان 0.5 بۆ 4 پیکسڵ بن
                 this.size = Math.random() * 3.5 + 0.5;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.opacity = Math.random() * 0.5 + 0.2;
+
+                if (isBurst) {
+                    // تەنۆلکە نوێیەکان بە خێراییەکی زیاتر و ئاراستەی جیاواز بڵاو دەبنەوە
+                    this.speedX = Math.random() * 4 - 2;
+                    this.speedY = Math.random() * 4 - 2;
+                    this.opacity = 1; // لە سەرەتادا ڕوونتر بن
+                } else {
+                    this.speedX = Math.random() * 0.5 - 0.25;
+                    this.speedY = Math.random() * 0.5 - 0.25;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                }
+
                 // دیاریکردنی ڕەنگ بە شێوەیەکی هەڕەمەکی (سپی یان پەمەیی کاڵ)
                 this.color = Math.random() > 0.5 ? '255, 255, 255' : '255, 192, 203';
             }
@@ -337,6 +348,23 @@
                 ctx.shadowBlur = 0; // پاککردنەوەی سێبەرەکە بۆ ئەدای باشتر
             }
         }
+
+        // فەنکشن بۆ دروستکردنی تەنۆلکەی نوێ لە کاتی کلیک
+        function createBurst(x, y) {
+            const burstCount = 12; // ژمارەی ئەو تەنۆلکانەی لە یەک کاتدا دروست دەبن
+            for (let i = 0; i < burstCount; i++) {
+                particles.push(new Particle(x, y, true));
+            }
+            // بۆ ئەوەی ژمارەی تەنۆلکەکان زۆر نەبێت و سیستمەکە خاو نەکاتەوە
+            if (particles.length > 800) {
+                particles.shift(); // یەک یەک تەنۆلکە کۆنەکان لادەبات نەک هەموو گروپەکە پێکەوە
+            }
+        }
+
+        window.addEventListener('mousedown', (e) => createBurst(e.clientX, e.clientY));
+        window.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) createBurst(e.touches[0].clientX, e.touches[0].clientY);
+        });
 
         function initParticles() {
             particles = [];
